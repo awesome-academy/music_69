@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/dp_4"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <TextView
+        android:text="@string/title_hot_trend"
+        android:textSize="35sp"
+        style="@style/TitleText"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerviewHotTrend"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_margin="@dimen/dp_4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerviewGenres"
+        android:layout_margin="@dimen/dp_4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>
