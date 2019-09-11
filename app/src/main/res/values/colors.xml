@@ -3,5 +3,10 @@
     <color name="colorPrimary">#00A6FF</color>
     <color name="colorPrimaryDark">#4096AE</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="colorGray">#747070</color>
+    <color name="colorGrey400">#bdbdbd</color>
+    <color name="colorBlack30">#4D141414</color>
+    <color name="colorGrey500">#9e9e9e</color>
+    <color name="colorGrey600">#757575</color>
+    <color name="colorGrey200">#eeeeee</color>
+    <color name="colorTextNameSong">#363C41</color>
 </resources>
