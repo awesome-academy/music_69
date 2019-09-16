@@ -3,21 +3,21 @@ package com.trongdeptrai.soundcloud.data.repository;
 import com.trongdeptrai.soundcloud.data.model.Track;
 import com.trongdeptrai.soundcloud.data.source.remote.OnFetchDataListener;
 
-public class TrackRespository {
-    private static TrackRespository sRespository;
+public class TrackRepository {
+    private static TrackRepository sRespository;
     private TrackDataResoure.LocalDataResoure mLocalDataSource;
     private TrackDataResoure.RemoteDataResoure mRemoteDataSource;
 
-    private TrackRespository(TrackDataResoure.LocalDataResoure localDataResoure,
+    private TrackRepository(TrackDataResoure.LocalDataResoure localDataResoure,
             TrackDataResoure.RemoteDataResoure remoteDataResoure) {
         mLocalDataSource = localDataResoure;
         mRemoteDataSource = remoteDataResoure;
     }
 
-    public static TrackRespository getInstance(TrackDataResoure.LocalDataResoure localDataResoure,
+    public static TrackRepository getInstance(TrackDataResoure.LocalDataResoure localDataResoure,
             TrackDataResoure.RemoteDataResoure remoteDataResoure) {
         if (sRespository == null) {
-            sRespository = new TrackRespository(localDataResoure, remoteDataResoure);
+            sRespository = new TrackRepository(localDataResoure, remoteDataResoure);
         }
         return sRespository;
     }
