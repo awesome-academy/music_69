@@ -14,12 +14,10 @@ import com.trongdeptrai.soundcloud.data.source.local.TrackLocalDataSource;
 import com.trongdeptrai.soundcloud.data.source.remote.TrackRemoteDataSource;
 import com.trongdeptrai.soundcloud.screen.BaseFragment;
 import com.trongdeptrai.soundcloud.utils.Genres;
-import com.trongdeptrai.soundcloud.utils.OnItemRecyclerViewClickListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends BaseFragment
-        implements HomeConstant.View, OnItemRecyclerViewClickListener<Object> {
+public class HomeFragment extends BaseFragment implements HomeConstant.View {
     private static final String TAG = HomeFragment.class.getSimpleName();
 
     public static HomeFragment newInstance() {
@@ -77,9 +75,5 @@ public class HomeFragment extends BaseFragment
 
     @Override
     public void onError(Exception e) {
-    }
-
-    @Override
-    public void onItemClickListener(Object item) {
     }
 }
