@@ -1,5 +1,5 @@
 package com.trongdeptrai.soundcloud.utils;
 
-public interface OnItemRecyclerViewClickListener<T> {
-    void onItemClickListener(T item);
+public interface OnItemRecyclerViewClickListener<U, T> {
+    void onItemClickListener(U list, T item);
 }

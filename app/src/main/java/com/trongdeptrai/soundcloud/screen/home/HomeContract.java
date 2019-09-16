@@ -4,7 +4,7 @@ import com.trongdeptrai.soundcloud.data.model.Track;
 import com.trongdeptrai.soundcloud.screen.BasePresenter;
 import java.util.List;
 
-public interface HomeConstant {
+public interface HomeContract {
     interface View {
         void onGetTrendingTrackSucceed(List<Track> data);
 
