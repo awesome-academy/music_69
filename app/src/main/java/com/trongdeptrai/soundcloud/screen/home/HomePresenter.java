@@ -10,8 +10,8 @@ public class HomePresenter implements HomeContract.Presenter {
     private HomeContract.View mView;
     private TrackRepository mTrackRepository;
 
-    HomePresenter(TrackRepository trackRespository) {
-        mTrackRepository = trackRespository;
+    HomePresenter(TrackRepository trackRepository) {
+        mTrackRepository = trackRepository;
     }
 
     @Override
@@ -23,9 +23,7 @@ public class HomePresenter implements HomeContract.Presenter {
         mTrackRepository.getTracksByGenre(genre, new OnFetchDataListener<Track>() {
             @Override
             public void onSucceed(List<Track> data) {
-                if (data != null) {
-                    mView.onGetTrackByGenresSucceed(data, renameGenre(genre));
-                }
+                if (data != null) mView.onGetTrackByGenresSucceed(data, renameGenre(genre));
             }
 
             @Override

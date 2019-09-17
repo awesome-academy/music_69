@@ -8,14 +8,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.trongdeptrai.soundcloud.R;
-import com.trongdeptrai.soundcloud.data.model.Genre;
 import com.trongdeptrai.soundcloud.data.model.Track;
 import com.trongdeptrai.soundcloud.data.repository.TrackRepository;
 import com.trongdeptrai.soundcloud.data.source.local.TrackLocalDataSource;
 import com.trongdeptrai.soundcloud.data.source.remote.TrackRemoteDataSource;
 import com.trongdeptrai.soundcloud.screen.BaseFragment;
 import com.trongdeptrai.soundcloud.utils.Genres;
-import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends BaseFragment implements HomeContract.View {
@@ -70,7 +68,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
 
     @Override
     public void onGetTrackByGenresSucceed(List<Track> data, String genre) {
-        new ArrayList<Genre>().add(new Genre(genre, data));
     }
 
     @Override
