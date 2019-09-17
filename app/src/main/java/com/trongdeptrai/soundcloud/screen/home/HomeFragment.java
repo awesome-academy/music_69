@@ -1,7 +1,6 @@
 package com.trongdeptrai.soundcloud.screen.home;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,7 +67,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
 
     @Override
     public void onGetTrendingTrackSucceed(List<Track> data) {
-        Log.d(TAG, "SIZE:\t " + data.size());
     }
 
     @Override

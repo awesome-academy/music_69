@@ -1,6 +1,5 @@
 package com.trongdeptrai.soundcloud.screen.home.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,38 +17,33 @@ public class GenresAdapter extends RecyclerView.Adapter
         implements OnItemRecyclerViewClickListener<List<Track>, Track> {
     private static final int ITEM_VIEW_TRENDING = R.layout.item_trending;
     private static final int ITEM_VIEW_GENRE = R.layout.item_genres;
-    private Context mContext;
     private List<Genre> mGenres;
     private OnItemRecyclerViewClickListener<List<Track>, Track> mOnItemRecyclerViewClickListener;
 
-    public GenresAdapter(Context context) {
-        mContext = context;
+    public GenresAdapter() {
         mGenres = new ArrayList<>();
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view;
         if (viewType == ITEM_VIEW_TRENDING) {
-            view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_trending, parent, false);
-            return new TrendingItem(mContext, mGenres.get(0).getTracks(), view,
+            return new TrendingItemViewHolder(LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_trending, parent, false), mGenres.get(0).getTracks(),
                     mOnItemRecyclerViewClickListener);
         } else {
-            view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_genres, parent, false);
-            return new GenreItem(mContext, mGenres, view);
+            return new GenreItemViewHolder(LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_genres, parent, false), mGenres);
         }
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (getItemViewType(position) == ITEM_VIEW_TRENDING) {
-            TrendingItem trendingItem = (TrendingItem) holder;
+            TrendingItemViewHolder trendingItem = (TrendingItemViewHolder) holder;
             trendingItem.bindView();
         } else {
-            GenreItem genreItem = (GenreItem) holder;
+            GenreItemViewHolder genreItem = (GenreItemViewHolder) holder;
             genreItem.bindView();
         }
     }
@@ -77,16 +71,14 @@ public class GenresAdapter extends RecyclerView.Adapter
         mOnItemRecyclerViewClickListener.onItemClickListener(list, item);
     }
 
-    static class TrendingItem extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private Context mContext;
+    static class TrendingItemViewHolder extends RecyclerView.ViewHolder {
         private List<Track> mTracks;
         private RecyclerView mRecyclerViewTrending;
         private OnItemRecyclerViewClickListener<List<Track>, Track> mListener;
 
-        TrendingItem(Context context, List<Track> tracks, @NonNull View itemView,
+        TrendingItemViewHolder(@NonNull View itemView, List<Track> tracks,
                 OnItemRecyclerViewClickListener<List<Track>, Track> listener) {
             super(itemView);
-            mContext = context;
             mTracks = tracks;
             mListener = listener;
             mRecyclerViewTrending = itemView.findViewById(R.id.recyclerViewTrending);
@@ -94,23 +86,19 @@ public class GenresAdapter extends RecyclerView.Adapter
             RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
             mRecyclerViewTrending.setRecycledViewPool(viewPool);
             mRecyclerViewTrending.setLayoutManager(
-                    new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+                    new LinearLayoutManager(itemView.getContext(), LinearLayoutManager.HORIZONTAL,
+                            false));
         }
 
         void bindView() {
-            TrendingTrackAdapter adapter = new TrendingTrackAdapter(mContext, mTracks);
+            TrendingTrackAdapter adapter = new TrendingTrackAdapter(itemView.getContext(), mTracks);
             mRecyclerViewTrending.setAdapter(adapter);
             adapter.setOnItemRecyclerViewClickListener(mListener);
         }
-
-        @Override
-        public void onClick(View view) {
-            mListener.onItemClickListener(mTracks, mTracks.get(getAdapterPosition()));
-        }
     }
 
-    static class GenreItem extends RecyclerView.ViewHolder {
-        GenreItem(Context context, List<Genre> genres, @NonNull View itemView) {
+    static class GenreItemViewHolder extends RecyclerView.ViewHolder {
+        GenreItemViewHolder(@NonNull View itemView, List<Genre> genres) {
             super(itemView);
         }
 

@@ -52,9 +52,9 @@ public class TrendingTrackAdapter extends RecyclerView.Adapter<TrendingTrackAdap
     static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private Context mContext;
         private List<Track> mTracks;
-        private TextView txtName;
-        private TextView txtSinger;
-        private ImageView imgSong;
+        private TextView textViewName;
+        private TextView textViewSinger;
+        private ImageView imageViewSong;
         private OnItemRecyclerViewClickListener<List<Track>, Track> mListener;
 
         ViewHolder(Context context, List<Track> tracks, @NonNull View itemView,
@@ -63,20 +63,20 @@ public class TrendingTrackAdapter extends RecyclerView.Adapter<TrendingTrackAdap
             mContext = context;
             mTracks = tracks;
             mListener = listener;
-            txtName = itemView.findViewById(R.id.txtNameSongTrendItem);
-            txtSinger = itemView.findViewById(R.id.txtNameSingerTrendItem);
-            imgSong = itemView.findViewById(R.id.imgSongTrendItem);
+            textViewName = itemView.findViewById(R.id.textViewNameSongTrendItem);
+            textViewSinger = itemView.findViewById(R.id.textViewNameSingerTrendItem);
+            imageViewSong = itemView.findViewById(R.id.imageViewSongTrendItem);
             itemView.setOnClickListener(this);
         }
 
         void bindView() {
             Track track = mTracks.get(getAdapterPosition());
-            txtName.setText(track.getTitle());
-            txtSinger.setText(track.getArtistName());
+            textViewName.setText(track.getTitle());
+            textViewSinger.setText(track.getArtistName());
             Glide.with(mContext)
                     .load(getBigImageUrl(track.getArtworkUrl()))
                     .error(R.drawable.ic_music_default)
-                    .into(imgSong);
+                    .into(imageViewSong);
         }
 
         @Override
