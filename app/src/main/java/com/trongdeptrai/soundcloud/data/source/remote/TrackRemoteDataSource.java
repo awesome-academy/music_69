@@ -17,6 +17,8 @@ public class TrackRemoteDataSource implements TrackDataResoure.RemoteDataResoure
 
     @Override
     public void getTrendingTracks(OnFetchDataListener<Track> listener) {
+        new GetTracksAysncTask(listener, QueryType.GET_TRACKS)
+                .execute(Constant.TRENDING_MUSIC_URL);
     }
 
     @Override

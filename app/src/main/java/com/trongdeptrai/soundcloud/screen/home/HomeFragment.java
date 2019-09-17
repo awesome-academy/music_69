@@ -1,6 +1,7 @@
 package com.trongdeptrai.soundcloud.screen.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,6 +53,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
                 TrackRepository.getInstance(trackLocalDataSource, trackRemoteDataSource);
         HomeContract.Presenter presenter = new HomePresenter(trackRepo);
         presenter.setView(this);
+        presenter.getHotTrend();
         presenter.getTrackByGenre(Genres.ALL_MUSIC);
         presenter.getTrackByGenre(Genres.ALL_AUDIO);
         presenter.getTrackByGenre(Genres.ALTERNATIVE_ROCK);
@@ -66,6 +68,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
 
     @Override
     public void onGetTrendingTrackSucceed(List<Track> data) {
+        Log.d(TAG, "SIZE:\t " + data.size());
     }
 
     @Override
