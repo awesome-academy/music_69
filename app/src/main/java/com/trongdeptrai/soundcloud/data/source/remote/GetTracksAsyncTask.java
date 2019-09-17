@@ -20,12 +20,12 @@ import static com.trongdeptrai.soundcloud.utils.Constant.GET_METHOD;
 import static com.trongdeptrai.soundcloud.utils.Constant.REQUEST_TIMEOUT;
 import static com.trongdeptrai.soundcloud.utils.Constant.USER;
 
-public class GetTracksAysncTask extends AsyncTask<String, Void, List<Track>> {
+public class GetTracksAsyncTask extends AsyncTask<String, Void, List<Track>> {
     private OnFetchDataListener<Track> mListener;
     private Exception mException;
     private int mQueryType;
 
-    public GetTracksAysncTask(OnFetchDataListener<Track> listener, int queryType) {
+    GetTracksAsyncTask(OnFetchDataListener<Track> listener, int queryType) {
         mListener = listener;
         mQueryType = queryType;
     }

@@ -17,14 +17,12 @@ public class TrackRemoteDataSource implements TrackDataResoure.RemoteDataResoure
 
     @Override
     public void getTrendingTracks(OnFetchDataListener<Track> listener) {
-        new GetTracksAysncTask(listener, QueryType.GET_TRACKS)
-                .execute(Constant.TRENDING_MUSIC_URL);
     }
 
     @Override
     public void getTracksByGenre(String genreType, OnFetchDataListener<Track> listener) {
-        new GetTracksAysncTask(listener, QueryType.GET_TRACKS).execute(
-                Constant.TRACK_MUSIC_URL + genreType + Constant.CLIENT_ID);
+        new GetTracksAsyncTask(listener, QueryType.GET_TRACKS)
+                .execute(Constant.TRACK_MUSIC_URL + genreType + Constant.CLIENT_ID);
     }
 
     @Override
