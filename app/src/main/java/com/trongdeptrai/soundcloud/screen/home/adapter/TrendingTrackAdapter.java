@@ -21,7 +21,7 @@ public class TrendingTrackAdapter extends RecyclerView.Adapter<TrendingTrackAdap
     private List<Track> mTracks;
     private OnItemRecyclerViewClickListener<List<Track>, Track> mOnItemRecyclerViewClickListener;
 
-    TrendingTrackAdapter(List<Track> tracks) {
+    public TrendingTrackAdapter(List<Track> tracks) {
         mTracks = tracks;
     }
 
@@ -43,7 +43,7 @@ public class TrendingTrackAdapter extends RecyclerView.Adapter<TrendingTrackAdap
         return mTracks != null ? mTracks.size() : 0;
     }
 
-    void setOnItemRecyclerViewClickListener(
+    public void setOnItemRecyclerViewClickListener(
             OnItemRecyclerViewClickListener<List<Track>, Track> listener) {
         mOnItemRecyclerViewClickListener = listener;
     }
@@ -72,8 +72,9 @@ public class TrendingTrackAdapter extends RecyclerView.Adapter<TrendingTrackAdap
             Track track = mTracks.get(getAdapterPosition());
             mTextViewName.setText(track.getTitle());
             mTextViewSinger.setText(track.getArtistName());
-            String url = getBigImageUrl(track.getArtworkUrl());
-            getImageUrl(url, this);
+            if (track.getArtworkUrl() != null)
+                getImageUrl(getBigImageUrl(track.getArtworkUrl()), this);
+            else onGetImageFailed();
         }
 
         @Override

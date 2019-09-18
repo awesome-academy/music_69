@@ -19,36 +19,41 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription"
         />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <View
+        android:id="@+id/viewBackground"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_72"
         android:background="@color/colorBlack50"
-        android:orientation="vertical"
-        android:padding="@dimen/dp_4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+    <TextView
+        android:id="@+id/textViewNameSongTrendItem"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/textViewNameSingerTrendItem"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        android:singleLine="true"
+        android:layout_marginBottom="@dimen/dp_4"
+        android:layout_marginStart="@dimen/dp_8"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/sp_24"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:id="@+id/textViewNameSingerTrendItem"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@+id/imageViewSongTrendItem"
-        app:layout_constraintEnd_toEndOf="@+id/imageViewSongTrendItem"
-        app:layout_constraintStart_toStartOf="@+id/imageViewSongTrendItem"
-        >
-
-        <TextView
-            android:id="@+id/textViewNameSongTrendItem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/sp_24"
-            android:layout_marginStart="@dimen/dp_4"
-            android:textStyle="bold"
-            android:singleLine="true"
-            />
-
-        <TextView
-            android:id="@+id/textViewNameSingerTrendItem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dp_4"
-            android:textColor="@android:color/white"
-            android:singleLine="true"
-            android:textSize="@dimen/sp_18"
-            />
-    </LinearLayout>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="@dimen/dp_8"
+        android:layout_marginStart="@dimen/dp_8"
+        android:singleLine="true"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/sp_18"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

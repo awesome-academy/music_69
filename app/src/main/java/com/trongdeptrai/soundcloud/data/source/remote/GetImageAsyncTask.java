@@ -11,7 +11,6 @@ import java.net.URL;
 
 public class GetImageAsyncTask extends AsyncTask<String, Void, Bitmap> {
     private OnGetImageFromUrlListener mListener;
-    private Exception mException;
 
     public GetImageAsyncTask(OnGetImageFromUrlListener listener) {
         mListener = listener;
@@ -37,10 +36,13 @@ public class GetImageAsyncTask extends AsyncTask<String, Void, Bitmap> {
             HttpURLConnection connection = (HttpURLConnection) urlAPI.openConnection();
             connection.setDoInput(true);
             connection.connect();
-            InputStream inputStream = connection.getInputStream();
+            InputStream inputStream = null;
+            if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                inputStream = connection.getInputStream();
+            }
+            connection.disconnect();
             return BitmapFactory.decodeStream(inputStream);
         } catch (IOException e) {
-            mException = e;
             e.printStackTrace();
             return null;
         }

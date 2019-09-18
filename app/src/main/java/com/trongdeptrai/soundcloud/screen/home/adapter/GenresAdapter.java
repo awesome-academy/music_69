@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.trongdeptrai.soundcloud.R;
 import com.trongdeptrai.soundcloud.data.model.Genre;
 import com.trongdeptrai.soundcloud.data.model.Track;
+import com.trongdeptrai.soundcloud.screen.home.adapter.TrendingTrackAdapter;
 import com.trongdeptrai.soundcloud.utils.OnItemRecyclerViewClickListener;
 import java.util.ArrayList;
 import java.util.List;
