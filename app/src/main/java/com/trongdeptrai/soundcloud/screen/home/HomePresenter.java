@@ -16,6 +16,17 @@ public class HomePresenter implements HomeContract.Presenter {
 
     @Override
     public void getHotTrend() {
+        mTrackRepository.getTrendingTracks(new OnFetchDataListener<Track>() {
+            @Override
+            public void onSucceed(List<Track> data) {
+                if(data != null) mView.onGetTrendingTrackSucceed(data);
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                mView.onError(e);
+            }
+        });
     }
 
     @Override
