@@ -1,16 +1,15 @@
-
 package com.trongdeptrai.soundcloud.screen.home.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.trongdeptrai.soundcloud.R;
 import com.trongdeptrai.soundcloud.data.model.Genre;
 import com.trongdeptrai.soundcloud.data.model.Track;
-import com.trongdeptrai.soundcloud.screen.home.adapter.TrendingTrackAdapter;
 import com.trongdeptrai.soundcloud.utils.OnItemRecyclerViewClickListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +20,7 @@ public class GenresAdapter extends RecyclerView.Adapter
     private static final int ITEM_VIEW_GENRE = R.layout.item_genres;
     private List<Genre> mGenres;
     private OnItemRecyclerViewClickListener<List<Track>, Track> mOnItemRecyclerViewClickListener;
+    private OnClickItemMoreListener mOnClickItemMoreListener;
 
     public GenresAdapter() {
         mGenres = new ArrayList<>();
@@ -35,7 +35,8 @@ public class GenresAdapter extends RecyclerView.Adapter
                     mOnItemRecyclerViewClickListener);
         } else {
             return new GenreItemViewHolder(LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_genres, parent, false), mGenres);
+                    .inflate(R.layout.item_genres, parent, false), mGenres,
+                    mOnItemRecyclerViewClickListener, mOnClickItemMoreListener);
         }
     }
 
@@ -68,9 +69,23 @@ public class GenresAdapter extends RecyclerView.Adapter
         mOnItemRecyclerViewClickListener = listener;
     }
 
+    public void setOnClickItemMoreListener(OnClickItemMoreListener onClickItemMoreListener) {
+        mOnClickItemMoreListener = onClickItemMoreListener;
+    }
+
     @Override
     public void onItemClickListener(List<Track> list, Track item) {
         mOnItemRecyclerViewClickListener.onItemClickListener(list, item);
+    }
+
+    public void updateData(List<Genre> data) {
+        mGenres.clear();
+        mGenres.addAll(data);
+        notifyItemInserted(mGenres.size());
+    }
+
+    public interface OnClickItemMoreListener {
+        void onClickMore(Genre genre);
     }
 
     static class TrendingItemViewHolder extends RecyclerView.ViewHolder {
@@ -99,18 +114,44 @@ public class GenresAdapter extends RecyclerView.Adapter
         }
     }
 
-    static class GenreItemViewHolder extends RecyclerView.ViewHolder {
-        GenreItemViewHolder(@NonNull View itemView, List<Genre> genres) {
+    static class GenreItemViewHolder extends RecyclerView.ViewHolder
+            implements View.OnClickListener {
+        private List<Genre> mGenres;
+        private OnItemRecyclerViewClickListener<List<Track>, Track>
+                mOnItemRecyclerViewClickListener;
+        private OnClickItemMoreListener mOnClickItemMoreListener;
+        private RecyclerView mRecyclerViewType;
+        private TextView mTextViewGenre;
+
+        GenreItemViewHolder(@NonNull View itemView, List<Genre> genres,
+                OnItemRecyclerViewClickListener<List<Track>, Track> onItemRecyclerViewClickListener,
+                OnClickItemMoreListener onClickItemMoreListener) {
             super(itemView);
+            mGenres = genres;
+            mTextViewGenre = itemView.findViewById(R.id.textViewTitleGenres);
+            TextView textViewMore = itemView.findViewById(R.id.textViewMore);
+            mOnItemRecyclerViewClickListener = onItemRecyclerViewClickListener;
+            mOnClickItemMoreListener = onClickItemMoreListener;
+            RecyclerView.RecycledViewPool mViewPool = new RecyclerView.RecycledViewPool();
+            mRecyclerViewType = itemView.findViewById(R.id.recyclerViewGenreType);
+            mRecyclerViewType.setHasFixedSize(true);
+            mRecyclerViewType.setRecycledViewPool(mViewPool);
+            mRecyclerViewType.setLayoutManager(
+                    new LinearLayoutManager(itemView.getContext(), LinearLayoutManager.HORIZONTAL,
+                            false));
+            textViewMore.setOnClickListener(this);
         }
 
         void bindView() {
+            mTextViewGenre.setText(mGenres.get(getAdapterPosition()).getGenres());
+            TrackAdapter adapter = new TrackAdapter(mGenres.get(getAdapterPosition()).getTracks());
+            mRecyclerViewType.setAdapter(adapter);
+            adapter.setTrackOnItemRecyclerViewClickListener(mOnItemRecyclerViewClickListener);
         }
-    }
 
-    public void updateData(List<Genre> data) {
-        mGenres.clear();
-        mGenres.addAll(data);
-        notifyItemInserted(mGenres.size());
+        @Override
+        public void onClick(View view) {
+            mOnClickItemMoreListener.onClickMore(mGenres.get(getAdapterPosition()));
+        }
     }
 }

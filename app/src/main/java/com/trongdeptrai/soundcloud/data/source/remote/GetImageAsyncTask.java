@@ -40,7 +40,6 @@ public class GetImageAsyncTask extends AsyncTask<String, Void, Bitmap> {
             if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 inputStream = connection.getInputStream();
             }
-            connection.disconnect();
             return BitmapFactory.decodeStream(inputStream);
         } catch (IOException e) {
             e.printStackTrace();
