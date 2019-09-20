@@ -146,12 +146,14 @@ public class GenresAdapter extends RecyclerView.Adapter
             mTextViewGenre.setText(mGenres.get(getAdapterPosition()).getGenres());
             TrackAdapter adapter = new TrackAdapter(mGenres.get(getAdapterPosition()).getTracks());
             mRecyclerViewType.setAdapter(adapter);
-            adapter.setTrackOnItemRecyclerViewClickListener(mOnItemRecyclerViewClickListener);
+            adapter.setItemClickListener(mOnItemRecyclerViewClickListener);
         }
 
         @Override
         public void onClick(View view) {
-            mOnClickItemMoreListener.onClickMore(mGenres.get(getAdapterPosition()));
+            if (mOnClickItemMoreListener != null) {
+                mOnClickItemMoreListener.onClickMore(mGenres.get(getAdapterPosition()));
+            }
         }
     }
 }

@@ -19,24 +19,21 @@ import static com.trongdeptrai.soundcloud.utils.Common.getImageUrl;
 
 public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.ViewHolder> {
     private List<Track> mTracks;
-    private OnItemRecyclerViewClickListener<List<Track>, Track>
-            mTrackOnItemRecyclerViewClickListener;
+    private OnItemRecyclerViewClickListener<List<Track>, Track> mItemClickListener;
 
     TrackAdapter(List<Track> tracks) {
         mTracks = tracks;
     }
 
-    void setTrackOnItemRecyclerViewClickListener(
-            OnItemRecyclerViewClickListener<List<Track>, Track> listener) {
-        mTrackOnItemRecyclerViewClickListener = listener;
+    void setItemClickListener(OnItemRecyclerViewClickListener<List<Track>, Track> listener) {
+        mItemClickListener = listener;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ViewHolder(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_sub_genres, parent, false),
-                mTrackOnItemRecyclerViewClickListener);
+                .inflate(R.layout.item_sub_genres, parent, false), mItemClickListener);
     }
 
     @Override
@@ -46,7 +43,7 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        return mTracks.size();
+        return mTracks != null ? mTracks.size() : 0;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder
