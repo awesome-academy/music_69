@@ -1,5 +1,6 @@
 package com.trongdeptrai.soundcloud.screen.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.trongdeptrai.soundcloud.data.source.local.TrackLocalDataSource;
 import com.trongdeptrai.soundcloud.data.source.remote.TrackRemoteDataSource;
 import com.trongdeptrai.soundcloud.screen.BaseFragment;
 import com.trongdeptrai.soundcloud.screen.home.adapter.GenresAdapter;
+import com.trongdeptrai.soundcloud.service.TrackService;
 import com.trongdeptrai.soundcloud.utils.Genres;
 import com.trongdeptrai.soundcloud.utils.OnItemRecyclerViewClickListener;
 import java.util.ArrayList;
@@ -102,5 +104,9 @@ public class HomeFragment extends BaseFragment
 
     @Override
     public void onItemClickListener(List<Track> list, int position) {
+        if (getActivity() != null) {
+            Intent intent = TrackService.getServiceIntent(getActivity(), list, position);
+            getActivity().startService(intent);
+        }
     }
 }

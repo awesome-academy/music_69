@@ -11,8 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="AllowBackup,GoogleAppIndexingWarning"
-        >
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity
             android:name=".screen.main.MainActivity"
             android:screenOrientation="portrait">
@@ -22,6 +21,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <service
+            android:name=".service.TrackService"
+            android:exported="false" />
     </application>
 
 </manifest>
