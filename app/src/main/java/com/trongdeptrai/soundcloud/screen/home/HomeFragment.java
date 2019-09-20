@@ -21,8 +21,9 @@ import com.trongdeptrai.soundcloud.utils.OnItemRecyclerViewClickListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends BaseFragment implements HomeContract.View,
-        OnItemRecyclerViewClickListener<List<Track>, Track> {
+public class HomeFragment extends BaseFragment
+        implements HomeContract.View, OnItemRecyclerViewClickListener<List<Track>>,
+        GenresAdapter.OnClickItemMoreListener {
     private static final String TAG = HomeFragment.class.getSimpleName();
     private static final String HOT_TREND = "Hot Trend";
     private GenresAdapter mGenresAdapter;
@@ -54,6 +55,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View,
         mGenresAdapter = new GenresAdapter();
         recyclerViewHome.setAdapter(mGenresAdapter);
         mGenresAdapter.setOnItemRecyclerViewClickListener(this);
+        mGenresAdapter.setOnClickItemMoreListener(this);
     }
 
     @Override
@@ -86,6 +88,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View,
     @Override
     public void onGetTrackByGenresSucceed(List<Track> data, String genre) {
         mGenres.add(new Genre(genre, data));
+        mGenresAdapter.updateData(mGenres);
     }
 
     @Override
@@ -94,6 +97,10 @@ public class HomeFragment extends BaseFragment implements HomeContract.View,
     }
 
     @Override
-    public void onItemClickListener(List<Track> list, Track item) {
+    public void onClickMore(String genre) {
+    }
+
+    @Override
+    public void onItemClickListener(List<Track> list, int position) {
     }
 }

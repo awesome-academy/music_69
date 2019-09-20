@@ -17,20 +17,23 @@ import java.util.List;
 import static com.trongdeptrai.soundcloud.utils.Common.getBigImageUrl;
 import static com.trongdeptrai.soundcloud.utils.Common.getImageUrl;
 
-public class TrendingTrackAdapter extends RecyclerView.Adapter<TrendingTrackAdapter.ViewHolder> {
+public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.ViewHolder> {
     private List<Track> mTracks;
-    private OnItemRecyclerViewClickListener<List<Track>> mOnItemRecyclerViewClickListener;
+    private OnItemRecyclerViewClickListener<List<Track>> mItemClickListener;
 
-    public TrendingTrackAdapter(List<Track> tracks) {
+    TrackAdapter(List<Track> tracks) {
         mTracks = tracks;
+    }
+
+    void setItemClickListener(OnItemRecyclerViewClickListener<List<Track>> listener) {
+        mItemClickListener = listener;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ViewHolder(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_sub_trending, parent, false), mTracks,
-                mOnItemRecyclerViewClickListener);
+                .inflate(R.layout.item_sub_genres, parent, false), mItemClickListener);
     }
 
     @Override
@@ -43,44 +46,36 @@ public class TrendingTrackAdapter extends RecyclerView.Adapter<TrendingTrackAdap
         return mTracks != null ? mTracks.size() : 0;
     }
 
-    void setOnItemRecyclerViewClickListener(OnItemRecyclerViewClickListener<List<Track>> listener) {
-        mOnItemRecyclerViewClickListener = listener;
-    }
-
-    static class ViewHolder extends RecyclerView.ViewHolder
+    class ViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener, OnGetImageFromUrlListener {
-        private List<Track> mTracks;
-        private TextView mTextViewName;
+        private TextView mTextViewNam;
         private TextView mTextViewSinger;
         private ImageView mImageViewSong;
         private OnItemRecyclerViewClickListener<List<Track>> mListener;
 
-        ViewHolder(@NonNull View itemView, List<Track> tracks,
+        ViewHolder(@NonNull View itemView,
                 OnItemRecyclerViewClickListener<List<Track>> listener) {
             super(itemView);
-            mTracks = tracks;
             mListener = listener;
-            mTextViewName = itemView.findViewById(R.id.textViewNameSongTrendItem);
-            mTextViewSinger = itemView.findViewById(R.id.textViewNameSingerTrendItem);
-            mImageViewSong = itemView.findViewById(R.id.imageViewSongTrendItem);
             itemView.setOnClickListener(this);
-            mImageViewSong.setClipToOutline(true);
+            mTextViewNam = itemView.findViewById(R.id.textViewNameSongItem);
+            mTextViewSinger = itemView.findViewById(R.id.textViewNameSingerItem);
+            mImageViewSong = itemView.findViewById(R.id.imageViewSongItem);
         }
 
         void bindView() {
             Track track = mTracks.get(getAdapterPosition());
-            mTextViewName.setText(track.getTitle());
+            mTextViewNam.setText(track.getTitle());
             mTextViewSinger.setText(track.getArtistName());
-            if (track.getArtworkUrl() != null)
+            mImageViewSong.setClipToOutline(true);
+            if (track.getArtworkUrl() != null) {
                 getImageUrl(getBigImageUrl(track.getArtworkUrl()), this);
-            else onGetImageFailed();
+            } else onGetImageFailed();
         }
 
         @Override
         public void onClick(View view) {
-            if (mListener != null) {
-                mListener.onItemClickListener(mTracks, getAdapterPosition());
-            }
+            mListener.onItemClickListener(mTracks, getAdapterPosition());
         }
 
         @Override
