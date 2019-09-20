@@ -19,7 +19,7 @@ import static com.trongdeptrai.soundcloud.utils.Common.getImageUrl;
 
 public class TrendingTrackAdapter extends RecyclerView.Adapter<TrendingTrackAdapter.ViewHolder> {
     private List<Track> mTracks;
-    private OnItemRecyclerViewClickListener<List<Track>, Track> mOnItemRecyclerViewClickListener;
+    private OnItemRecyclerViewClickListener<List<Track>> mOnItemRecyclerViewClickListener;
 
     public TrendingTrackAdapter(List<Track> tracks) {
         mTracks = tracks;
@@ -43,8 +43,7 @@ public class TrendingTrackAdapter extends RecyclerView.Adapter<TrendingTrackAdap
         return mTracks != null ? mTracks.size() : 0;
     }
 
-    public void setOnItemRecyclerViewClickListener(
-            OnItemRecyclerViewClickListener<List<Track>, Track> listener) {
+    void setOnItemRecyclerViewClickListener(OnItemRecyclerViewClickListener<List<Track>> listener) {
         mOnItemRecyclerViewClickListener = listener;
     }
 
@@ -54,10 +53,10 @@ public class TrendingTrackAdapter extends RecyclerView.Adapter<TrendingTrackAdap
         private TextView mTextViewName;
         private TextView mTextViewSinger;
         private ImageView mImageViewSong;
-        private OnItemRecyclerViewClickListener<List<Track>, Track> mListener;
+        private OnItemRecyclerViewClickListener<List<Track>> mListener;
 
         ViewHolder(@NonNull View itemView, List<Track> tracks,
-                OnItemRecyclerViewClickListener<List<Track>, Track> listener) {
+                OnItemRecyclerViewClickListener<List<Track>> listener) {
             super(itemView);
             mTracks = tracks;
             mListener = listener;
@@ -80,7 +79,7 @@ public class TrendingTrackAdapter extends RecyclerView.Adapter<TrendingTrackAdap
         @Override
         public void onClick(View view) {
             if (mListener != null) {
-                mListener.onItemClickListener(mTracks, mTracks.get(getAdapterPosition()));
+                mListener.onItemClickListener(mTracks, getAdapterPosition());
             }
         }
 

@@ -19,13 +19,13 @@ import static com.trongdeptrai.soundcloud.utils.Common.getImageUrl;
 
 public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.ViewHolder> {
     private List<Track> mTracks;
-    private OnItemRecyclerViewClickListener<List<Track>, Track> mItemClickListener;
+    private OnItemRecyclerViewClickListener<List<Track>> mItemClickListener;
 
     TrackAdapter(List<Track> tracks) {
         mTracks = tracks;
     }
 
-    void setItemClickListener(OnItemRecyclerViewClickListener<List<Track>, Track> listener) {
+    void setItemClickListener(OnItemRecyclerViewClickListener<List<Track>> listener) {
         mItemClickListener = listener;
     }
 
@@ -51,10 +51,10 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.ViewHolder> 
         private TextView mTextViewNam;
         private TextView mTextViewSinger;
         private ImageView mImageViewSong;
-        private OnItemRecyclerViewClickListener<List<Track>, Track> mListener;
+        private OnItemRecyclerViewClickListener<List<Track>> mListener;
 
         ViewHolder(@NonNull View itemView,
-                OnItemRecyclerViewClickListener<List<Track>, Track> listener) {
+                OnItemRecyclerViewClickListener<List<Track>> listener) {
             super(itemView);
             mListener = listener;
             itemView.setOnClickListener(this);
@@ -70,14 +70,12 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.ViewHolder> 
             mImageViewSong.setClipToOutline(true);
             if (track.getArtworkUrl() != null) {
                 getImageUrl(getBigImageUrl(track.getArtworkUrl()), this);
-            } else {
-                onGetImageFailed();
-            }
+            } else onGetImageFailed();
         }
 
         @Override
         public void onClick(View view) {
-            mListener.onItemClickListener(mTracks, mTracks.get(getAdapterPosition()));
+            mListener.onItemClickListener(mTracks, getAdapterPosition());
         }
 
         @Override

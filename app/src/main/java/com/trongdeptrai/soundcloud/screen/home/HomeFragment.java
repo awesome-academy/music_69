@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends BaseFragment
-        implements HomeContract.View, OnItemRecyclerViewClickListener<List<Track>, Track>,
+        implements HomeContract.View, OnItemRecyclerViewClickListener<List<Track>>,
         GenresAdapter.OnClickItemMoreListener {
     private static final String TAG = HomeFragment.class.getSimpleName();
     private static final String HOT_TREND = "Hot Trend";
@@ -97,10 +97,10 @@ public class HomeFragment extends BaseFragment
     }
 
     @Override
-    public void onItemClickListener(List<Track> list, Track item) {
+    public void onClickMore(String genre) {
     }
 
     @Override
-    public void onClickMore(Genre genre) {
+    public void onItemClickListener(List<Track> list, int position) {
     }
 }

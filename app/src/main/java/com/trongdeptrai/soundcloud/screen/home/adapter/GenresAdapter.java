@@ -15,11 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GenresAdapter extends RecyclerView.Adapter
-        implements OnItemRecyclerViewClickListener<List<Track>, Track> {
+        implements OnItemRecyclerViewClickListener<List<Track>> {
     private static final int ITEM_VIEW_TRENDING = R.layout.item_trending;
     private static final int ITEM_VIEW_GENRE = R.layout.item_genres;
     private List<Genre> mGenres;
-    private OnItemRecyclerViewClickListener<List<Track>, Track> mOnItemRecyclerViewClickListener;
+    private OnItemRecyclerViewClickListener<List<Track>> mOnItemRecyclerViewClickListener;
     private OnClickItemMoreListener mOnClickItemMoreListener;
 
     public GenresAdapter() {
@@ -65,17 +65,12 @@ public class GenresAdapter extends RecyclerView.Adapter
     }
 
     public void setOnItemRecyclerViewClickListener(
-            OnItemRecyclerViewClickListener<List<Track>, Track> listener) {
+            OnItemRecyclerViewClickListener<List<Track>> listener) {
         mOnItemRecyclerViewClickListener = listener;
     }
 
     public void setOnClickItemMoreListener(OnClickItemMoreListener onClickItemMoreListener) {
         mOnClickItemMoreListener = onClickItemMoreListener;
-    }
-
-    @Override
-    public void onItemClickListener(List<Track> list, Track item) {
-        mOnItemRecyclerViewClickListener.onItemClickListener(list, item);
     }
 
     public void updateData(List<Genre> data) {
@@ -84,17 +79,22 @@ public class GenresAdapter extends RecyclerView.Adapter
         notifyItemInserted(mGenres.size());
     }
 
+    @Override
+    public void onItemClickListener(List<Track> list, int position) {
+        mOnItemRecyclerViewClickListener.onItemClickListener(list, position);
+    }
+
     public interface OnClickItemMoreListener {
-        void onClickMore(Genre genre);
+        void onClickMore(String genre);
     }
 
     static class TrendingItemViewHolder extends RecyclerView.ViewHolder {
         private List<Track> mTracks;
         private RecyclerView mRecyclerViewTrending;
-        private OnItemRecyclerViewClickListener<List<Track>, Track> mListener;
+        private OnItemRecyclerViewClickListener<List<Track>> mListener;
 
         TrendingItemViewHolder(@NonNull View itemView, List<Track> tracks,
-                OnItemRecyclerViewClickListener<List<Track>, Track> listener) {
+                OnItemRecyclerViewClickListener<List<Track>> listener) {
             super(itemView);
             mTracks = tracks;
             mListener = listener;
@@ -117,14 +117,14 @@ public class GenresAdapter extends RecyclerView.Adapter
     static class GenreItemViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener {
         private List<Genre> mGenres;
-        private OnItemRecyclerViewClickListener<List<Track>, Track>
+        private OnItemRecyclerViewClickListener<List<Track>>
                 mOnItemRecyclerViewClickListener;
         private OnClickItemMoreListener mOnClickItemMoreListener;
         private RecyclerView mRecyclerViewType;
         private TextView mTextViewGenre;
 
         GenreItemViewHolder(@NonNull View itemView, List<Genre> genres,
-                OnItemRecyclerViewClickListener<List<Track>, Track> onItemRecyclerViewClickListener,
+                OnItemRecyclerViewClickListener<List<Track>> onItemRecyclerViewClickListener,
                 OnClickItemMoreListener onClickItemMoreListener) {
             super(itemView);
             mGenres = genres;
@@ -152,7 +152,7 @@ public class GenresAdapter extends RecyclerView.Adapter
         @Override
         public void onClick(View view) {
             if (mOnClickItemMoreListener != null) {
-                mOnClickItemMoreListener.onClickMore(mGenres.get(getAdapterPosition()));
+                mOnClickItemMoreListener.onClickMore(mGenres.get(getAdapterPosition()).getGenres());
             }
         }
     }
